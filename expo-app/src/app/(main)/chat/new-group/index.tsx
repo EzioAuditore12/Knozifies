@@ -19,7 +19,9 @@ import { useAuthStore } from '@/store/auth';
 export default function NewGroupChatCreationScreen() {
   const [search, setSearch] = useState<string>('');
   const [searchValue] = useDebounce(search, 300);
-  const [selectedUserIds, setSelectedUserIds] = useState<Set<string>>(new Set());
+  const [selectedUserIds, setSelectedUserIds] = useState<Set<string>>(
+    new Set(),
+  );
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { user: operatingUser } = useAuthStore((state) => state);
@@ -34,7 +36,7 @@ export default function NewGroupChatCreationScreen() {
   useRefreshOnFocus(refetch);
 
   const users = (data?.pages.flatMap((page) => page.data) ?? []).filter(
-    (u) => u.id !== operatingUser?.id
+    (u) => u.id !== operatingUser?.id,
   );
   const selectedUsers = users.filter((u) => selectedUserIds.has(u.id));
   const unselectedUsers = users.filter((u) => !selectedUserIds.has(u.id));
@@ -68,7 +70,10 @@ export default function NewGroupChatCreationScreen() {
           </SearchField.Group>
         </SearchField>
 
-        <SelectedUserList data={selectedUsers} setSelectedUserIds={setSelectedUserIds} />
+        <SelectedUserList
+          data={selectedUsers}
+          setSelectedUserIds={setSelectedUserIds}
+        />
 
         <UserList
           data={unselectedUsers}

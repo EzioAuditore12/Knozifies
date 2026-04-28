@@ -33,10 +33,11 @@ export default function ChattingGroupScreen() {
     };
   }, [socket, id, socket?.connected]);
 
-  const { data: chats, fetchNextPage: fetchNextChats } = useLiveGroupConversationChats({
-    id,
-    currentUserId: user?.id as string,
-  });
+  const { data: chats, fetchNextPage: fetchNextChats } =
+    useLiveGroupConversationChats({
+      id,
+      currentUserId: user?.id as string,
+    });
 
   const reversedChats = chats.flat().reverse();
 

@@ -40,6 +40,17 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     ],
     'react-native-nitro-fetch',
     'expo-background-task',
+    [
+      'react-native-video',
+      {
+        enableAndroidPictureInPicture: true,
+        enableBackgroundAudio: true,
+        androidExtensions: {
+          useExoplayerDash: true,
+          useExoplayerHls: true,
+        },
+      },
+    ],
   ],
   experiments: {
     typedRoutes: true,

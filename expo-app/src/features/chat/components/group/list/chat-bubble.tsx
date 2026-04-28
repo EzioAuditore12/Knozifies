@@ -11,14 +11,25 @@ interface ChatGroupBubbleProps extends SurfaceRootProps {
   data: ChatGroupWithUserDetails;
 }
 
-export function ChatGroupBubble({ data, className, ...props }: ChatGroupBubbleProps) {
+export function ChatGroupBubble({
+  data,
+  className,
+  ...props
+}: ChatGroupBubbleProps) {
   const { mode, text, createdAt, senderName, senderAvatar } = data;
 
   return (
-    <View className={cn('flex-row gap-x-1', mode === 'SENT' ? 'self-end' : 'self-start')}>
+    <View
+      className={cn(
+        'flex-row gap-x-1',
+        mode === 'SENT' ? 'self-end' : 'self-start',
+      )}
+    >
       <Activity mode={mode === 'RECEIVED' ? 'visible' : 'hidden'}>
         <Avatar className="self-f" alt="">
-          <Avatar.Image source={senderAvatar ? { uri: senderAvatar } : undefined} />
+          <Avatar.Image
+            source={senderAvatar ? { uri: senderAvatar } : undefined}
+          />
           <Avatar.Fallback>{senderName[0]}</Avatar.Fallback>
         </Avatar>
       </Activity>
@@ -26,21 +37,29 @@ export function ChatGroupBubble({ data, className, ...props }: ChatGroupBubblePr
         className={cn(
           'my-1 max-w-xs rounded-xl p-3',
           mode === 'SENT' ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-700',
-          className
+          className,
         )}
-        {...props}>
+        {...props}
+      >
         <Activity mode={mode === 'RECEIVED' ? 'visible' : 'hidden'}>
-          <Description className="font-bold text-orange-500">{senderName}</Description>
+          <Description className="font-bold text-orange-500">
+            {senderName}
+          </Description>
         </Activity>
 
-        <Description className={mode === 'SENT' ? 'text-white' : 'text-black dark:text-white'}>
+        <Description
+          className={
+            mode === 'SENT' ? 'text-white' : 'text-black dark:text-white'
+          }
+        >
           {text}
         </Description>
         <Description
           className="text-sm"
           style={{
             color: mode === 'SENT' ? '#dbeafe' : '#6b7280',
-          }}>
+          }}
+        >
           {new Date(createdAt).toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit',

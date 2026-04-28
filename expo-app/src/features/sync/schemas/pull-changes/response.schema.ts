@@ -8,9 +8,13 @@ import { selectChatGroupSchema } from '@/db/tables/chat-group.table';
 
 const userChangeSchema = createChangesSchema(selectUserSchema);
 
-const conversationOneToOneChangeSchema = createChangesSchema(selectConversationOneToOneSchema);
+const conversationOneToOneChangeSchema = createChangesSchema(
+  selectConversationOneToOneSchema,
+);
 
-const conversationGroupChangeSchema = createChangesSchema(selectConversationGroupSchema);
+const conversationGroupChangeSchema = createChangesSchema(
+  selectConversationGroupSchema,
+);
 
 const chatOneToOneChangeSchema = createChangesSchema(selectChatOneToOneSchema);
 

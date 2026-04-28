@@ -78,9 +78,10 @@ export function AiChatInput({
     <View
       className={cn(
         'border-t border-gray-200 bg-white p-2 dark:border-gray-800 dark:bg-black',
-        className
+        className,
       )}
-      {...props}>
+      {...props}
+    >
       <View className="flex-row items-end gap-x-2">
         <Controller
           control={control}
@@ -108,9 +109,12 @@ export function AiChatInput({
                 className="flex-[1_1_0%]"
                 presentation="bottom-sheet"
                 value={
-                  selectedGroup ? { value: selectedGroup.id, label: selectedGroup.name } : undefined
+                  selectedGroup
+                    ? { value: selectedGroup.id, label: selectedGroup.name }
+                    : undefined
                 }
-                onValueChange={(option) => onChange(option?.value)}>
+                onValueChange={(option) => onChange(option?.value)}
+              >
                 <Select.Trigger>
                   <Select.Value placeholder="Group" />
                   <Select.TriggerIndicator />
@@ -134,7 +138,8 @@ export function AiChatInput({
           }}
           isDisabled={isMutationPending}
           size="sm"
-          className="mb-1">
+          className="mb-1"
+        >
           Send
         </Button>
       </View>

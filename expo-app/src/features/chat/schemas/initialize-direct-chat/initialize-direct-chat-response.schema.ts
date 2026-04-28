@@ -10,4 +10,5 @@ export const initializeDirectChatResponseSchema = type({
   updatedAt: 'string.date.iso',
 });
 
-export type InitializeDirectChatResponse = typeof initializeDirectChatResponseSchema.infer;
+export type InitializeDirectChatResponse =
+  typeof initializeDirectChatResponseSchema.infer;

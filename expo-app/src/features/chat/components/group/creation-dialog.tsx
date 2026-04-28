@@ -45,7 +45,12 @@ export function GroupCreationDialog({
   };
 
   return (
-    <Dialog className={cn(className)} isOpen={isOpen} onOpenChange={setIsOpen} {...props}>
+    <Dialog
+      className={cn(className)}
+      isOpen={isOpen}
+      onOpenChange={setIsOpen}
+      {...props}
+    >
       <Dialog.Trigger asChild>
         <Button variant="primary">Create Group</Button>
       </Dialog.Trigger>
@@ -74,7 +79,8 @@ export function GroupCreationDialog({
             />
 
             <Dialog.Description>
-              Are you sure you want to proceed with this action? This cannot be undone.
+              Are you sure you want to proceed with this action? This cannot be
+              undone.
             </Dialog.Description>
           </View>
           <View className="flex-row justify-end gap-3">
@@ -82,10 +88,15 @@ export function GroupCreationDialog({
               isDisabled={isFormSubmitting}
               variant="ghost"
               size="sm"
-              onPress={() => setIsOpen(false)}>
+              onPress={() => setIsOpen(false)}
+            >
               Cancel
             </Button>
-            <Button isDisabled={isFormSubmitting} size="sm" onPress={handleSubmit(onSubmit)}>
+            <Button
+              isDisabled={isFormSubmitting}
+              size="sm"
+              onPress={handleSubmit(onSubmit)}
+            >
               Confirm
             </Button>
           </View>

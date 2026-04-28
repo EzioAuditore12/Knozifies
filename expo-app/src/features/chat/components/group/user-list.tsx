@@ -50,7 +50,11 @@ export function UserList({
         data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <UserCard data={item} className="mb-3" onPress={() => handleSelectUser(item.id)} />
+          <UserCard
+            data={item}
+            className="mb-3"
+            onPress={() => handleSelectUser(item.id)}
+          />
         )}
         {...props}
       />

@@ -6,7 +6,10 @@ import { Card } from 'heroui-native/card';
 import { cn } from 'tailwind-variants';
 import { isToday, isYesterday, format } from 'date-fns';
 
-import { ThrottledTouchable, type ThrottledTouchableProps } from '@/components/throttled-touchable';
+import {
+  ThrottledTouchable,
+  type ThrottledTouchableProps,
+} from '@/components/throttled-touchable';
 
 import type { Conversation } from '../../types/conversation.type';
 
@@ -29,7 +32,12 @@ function formatChatDate(timestamp: number) {
   }
 }
 
-export function ConversationCard({ className, data, onPress, ...props }: ConversationCardProps) {
+export function ConversationCard({
+  className,
+  data,
+  onPress,
+  ...props
+}: ConversationCardProps) {
   const { name, updatedAt, lastMessage } = data;
 
   return (
@@ -48,7 +56,9 @@ export function ConversationCard({ className, data, onPress, ...props }: Convers
             <Description className="mt-2">{lastMessage}</Description>
           </View>
         </Card.Body>
-        <Description className="mr-2 ml-auto">{formatChatDate(updatedAt)}</Description>
+        <Description className="mr-2 ml-auto">
+          {formatChatDate(updatedAt)}
+        </Description>
       </Card>
     </ThrottledTouchable>
   );

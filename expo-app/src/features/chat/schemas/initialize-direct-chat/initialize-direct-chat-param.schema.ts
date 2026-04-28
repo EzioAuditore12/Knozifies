@@ -5,4 +5,5 @@ export const initializeDirectChatParamSchema = type({
   text: '0 < string <= 1000',
 });
 
-export type InitializeDirectChatParam = typeof initializeDirectChatParamSchema.infer;
+export type InitializeDirectChatParam =
+  typeof initializeDirectChatParamSchema.infer;

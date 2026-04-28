@@ -5,7 +5,10 @@ import { conversationGroupTable } from '@/db/tables/conversation-group.table';
 export function useGetGroups() {
   return useLiveQuery(
     db
-      .select({ id: conversationGroupTable.id, name: conversationGroupTable.name })
-      .from(conversationGroupTable)
+      .select({
+        id: conversationGroupTable.id,
+        name: conversationGroupTable.name,
+      })
+      .from(conversationGroupTable),
   );
 }

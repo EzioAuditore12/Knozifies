@@ -4,7 +4,10 @@ import type { SendMessage } from '@/lib/socket-io/schemas/send-message.schema';
 import { chatOneToOneRepository } from '@/db/repositories/chat-one-to-one.repository';
 import { conversationOneToOneRepository } from '@/db/repositories/conversation-one-to-one.repository';
 
-export type SendMessageEvent = Omit<SendMessage, 'id' | 'createdAt' | 'updatedAt' | 'status'> & {
+export type SendMessageEvent = Omit<
+  SendMessage,
+  'id' | 'createdAt' | 'updatedAt' | 'status'
+> & {
   socket: Socket;
 };
 
@@ -21,7 +24,10 @@ export const sendMessageEvent = async ({
     text,
   });
 
-  await conversationOneToOneRepository.updateTime(saveDirectChat.conversationId, Date.now());
+  await conversationOneToOneRepository.updateTime(
+    saveDirectChat.conversationId,
+    Date.now(),
+  );
 
   socket.emit('message:send', {
     id: saveDirectChat.id,

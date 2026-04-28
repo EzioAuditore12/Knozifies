@@ -68,7 +68,11 @@ export function SendFirstMessage({
           )}
         />
 
-        <Button onPress={handlFormSubmit(onSubmit)} size="sm" isDisabled={isPending}>
+        <Button
+          onPress={handlFormSubmit(onSubmit)}
+          size="sm"
+          isDisabled={isPending}
+        >
           Send
         </Button>
       </View>

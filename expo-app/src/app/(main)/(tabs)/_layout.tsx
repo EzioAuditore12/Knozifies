@@ -26,6 +26,7 @@ export default function TabsLayout() {
           tabBarIcon: ({ color }) => (
             <Ionicons size={32} name="videocam" color={color} />
           ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen

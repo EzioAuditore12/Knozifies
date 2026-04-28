@@ -21,7 +21,7 @@ const handleReceiveMessage = async (message: ReceiveMessage) => {
 
   await conversationOneToOneRepository.updateTime(
     saveDirectChat.conversationId,
-    new Date(createdAt).getTime()
+    new Date(createdAt).getTime(),
   );
 };
 

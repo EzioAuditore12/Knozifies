@@ -10,7 +10,9 @@ import { aiRepository } from '@/db/repositories/ai.repository';
 export const askAiApi = async (data: Omit<AskAiParam, 'chats'>) => {
   await aiRepository.create({ text: data.query, sender: 'human' });
 
-  const groupChats = await chatGroupRepository.getAllWithUser(data.group.group_id);
+  const groupChats = await chatGroupRepository.getAllWithUser(
+    data.group.group_id,
+  );
 
   const mappedChats: AskAiParam['chats'] = groupChats.map((chat) => ({
     message: chat.text,

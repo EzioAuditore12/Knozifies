@@ -22,13 +22,15 @@ export function AiChatList({ data, ...props }: AiChatListProps) {
               'mb-4 max-w-[85%] rounded-2xl p-4',
               isHuman
                 ? 'self-end rounded-br-sm bg-blue-600'
-                : 'self-start rounded-bl-sm border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800'
-            )}>
+                : 'self-start rounded-bl-sm border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800',
+            )}
+          >
             <Description
               className={cn(
                 'text-base',
-                isHuman ? 'text-white' : 'text-gray-800 dark:text-gray-100'
-              )}>
+                isHuman ? 'text-white' : 'text-gray-800 dark:text-gray-100',
+              )}
+            >
               {item.text}
             </Description>
           </View>

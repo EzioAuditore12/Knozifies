@@ -22,7 +22,7 @@ export function ChatterInfo({ className, userId, ...props }: ChatterInfoProps) {
   const safeAreaInsets = useSafeAreaInsets();
 
   const { data, isLoading } = useQuery(
-    toCompilableQuery(query.where(eq(userTable.id, userId)).limit(1))
+    toCompilableQuery(query.where(eq(userTable.id, userId)).limit(1)),
   );
 
   if (isLoading) return <Description>Data being loaded</Description>;
@@ -32,11 +32,15 @@ export function ChatterInfo({ className, userId, ...props }: ChatterInfoProps) {
       key={data[0].id}
       className={cn(
         'justify border-background-tertiary flex-row items-center gap-x-1 border-b-2 p-2 px-4',
-        className
+        className,
       )}
       style={{ paddingTop: safeAreaInsets.top }}
-      {...props}>
-      <ThrottledTouchable className="bg-background rounded-full p-2" onPress={() => router.back()}>
+      {...props}
+    >
+      <ThrottledTouchable
+        className="bg-background rounded-full p-2"
+        onPress={() => router.back()}
+      >
         <Ionicons name="arrow-back" size={22} />
       </ThrottledTouchable>
 

@@ -5,4 +5,5 @@ export const initializeGroupChatParamSchema = type({
   participants: 'string.uuid[]',
 });
 
-export type InitializeGroupChatParam = typeof initializeGroupChatParamSchema.infer;
+export type InitializeGroupChatParam =
+  typeof initializeGroupChatParamSchema.infer;

@@ -26,7 +26,9 @@ export function connectWebSocket() {
     autoConnect: true,
   });
 
-  socket.on('connect_error', (err: SocketError) => handleWsTokenRefresh(err, socket));
+  socket.on('connect_error', (err: SocketError) =>
+    handleWsTokenRefresh(err, socket),
+  );
 
   return socket;
 }

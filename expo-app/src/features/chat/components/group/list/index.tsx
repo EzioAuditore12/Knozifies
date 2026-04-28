@@ -1,8 +1,16 @@
 import { cn } from 'tailwind-variants';
-import { FlashList, type FlashListProps, type FlashListRef } from '@shopify/flash-list';
+import {
+  FlashList,
+  type FlashListProps,
+  type FlashListRef,
+} from '@shopify/flash-list';
 import { useRef, Activity, useState } from 'react';
 import { Button } from 'heroui-native/button';
-import { type NativeScrollEvent, type NativeSyntheticEvent, View } from 'react-native';
+import {
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+  View,
+} from 'react-native';
 
 import type { ChatGroupWithUserDetails } from '@/features/chat/types/group-chats';
 
@@ -17,7 +25,11 @@ interface ChatGroupListProps extends Omit<
   data: ChatGroupWithUserDetails[];
 }
 
-export function ChatGroupList({ data, className, ...props }: ChatGroupListProps) {
+export function ChatGroupList({
+  data,
+  className,
+  ...props
+}: ChatGroupListProps) {
   const ref = useRef<FlashListRef<ChatGroupWithUserDetails> | null>(null);
 
   const [viewHeight, setViewHeight] = useState<number>(0);
@@ -34,7 +46,8 @@ export function ChatGroupList({ data, className, ...props }: ChatGroupListProps)
     const paddingToBottom = 20;
 
     const atBottom =
-      contentOffset.y + layoutMeasurement.height >= contentSize.height - paddingToBottom;
+      contentOffset.y + layoutMeasurement.height >=
+      contentSize.height - paddingToBottom;
 
     setIsAtListEnd(atBottom);
   };
@@ -42,7 +55,8 @@ export function ChatGroupList({ data, className, ...props }: ChatGroupListProps)
   return (
     <View
       className={cn('relative flex-1 p-1', className)}
-      onLayout={(e) => setViewHeight(e.nativeEvent.layout.height)}>
+      onLayout={(e) => setViewHeight(e.nativeEvent.layout.height)}
+    >
       <FlashList
         ref={ref}
         onScroll={handleScroll}
@@ -60,8 +74,14 @@ export function ChatGroupList({ data, className, ...props }: ChatGroupListProps)
         }}
         {...props}
       />
-      <Activity mode={viewHeight < contentHeight && !isAtListEnd ? 'visible' : 'hidden'}>
-        <Button className="absolute right-0 bottom-2" variant="tertiary" onPress={scrollToEnd}>
+      <Activity
+        mode={viewHeight < contentHeight && !isAtListEnd ? 'visible' : 'hidden'}
+      >
+        <Button
+          className="absolute right-0 bottom-2"
+          variant="tertiary"
+          onPress={scrollToEnd}
+        >
           <Ionicons name="arrow-down" />
         </Button>
       </Activity>

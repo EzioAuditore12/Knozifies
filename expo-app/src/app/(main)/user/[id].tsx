@@ -38,7 +38,7 @@ const navgateToChat = async ({
     });
     return;
   }
-  
+
   router.navigate({
     pathname: '/(main)/chat/new-one-to-one/[id]',
     params: {

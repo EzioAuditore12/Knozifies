@@ -21,10 +21,14 @@ export function useInitializeGroupChat() {
 
         const existingUserIds = new Set(existingUsers.map((u) => u.id));
 
-        const newUserIds = data.participants.filter((id) => !existingUserIds.has(id));
+        const newUserIds = data.participants.filter(
+          (id) => !existingUserIds.has(id),
+        );
 
         if (newUserIds.length > 0) {
-          const newUsersDetails = await getMultipleUsersApi({ participants: newUserIds });
+          const newUsersDetails = await getMultipleUsersApi({
+            participants: newUserIds,
+          });
 
           const mappedNewUserDetails = newUsersDetails.map((u) => ({
             ...u,

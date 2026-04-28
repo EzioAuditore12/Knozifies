@@ -31,7 +31,7 @@ export function useLiveGroupConversationChats({
         mode: sql<
           'SENT' | 'RECEIVED'
         >`CASE WHEN ${chatGroupTable.senderId} = ${currentUserId} THEN 'SENT' ELSE 'RECEIVED' END`.as(
-          'mode'
+          'mode',
         ),
       })
       .from(chatGroupTable)

@@ -19,7 +19,8 @@ TaskManager.defineTask(BACKGROUND_SYNC_TASK, async () => {
 // Helper to easily register the task within your React components
 export async function registerBackgroundSyncTask() {
   try {
-    const isRegistered = await TaskManager.isTaskRegisteredAsync(BACKGROUND_SYNC_TASK);
+    const isRegistered =
+      await TaskManager.isTaskRegisteredAsync(BACKGROUND_SYNC_TASK);
     if (!isRegistered) {
       await BackgroundTask.registerTaskAsync(BACKGROUND_SYNC_TASK);
       console.log('[Background Sync] Task registered');

@@ -33,13 +33,16 @@ export const useSocketState = create<SocketState>()((set, get) => ({
 
       // Initialize AppState listener once
       if (!appStateSubscription) {
-        appStateSubscription = AppState.addEventListener('change', (nextAppState) => {
-          if (nextAppState.match(/inactive|background/)) {
-            get().disconnectSocket();
-          } else if (nextAppState === 'active') {
-            get().connectSocket();
-          }
-        });
+        appStateSubscription = AppState.addEventListener(
+          'change',
+          (nextAppState) => {
+            if (nextAppState.match(/inactive|background/)) {
+              get().disconnectSocket();
+            } else if (nextAppState === 'active') {
+              get().connectSocket();
+            }
+          },
+        );
       }
     } catch (error) {
       console.log('Socket connection failed (likely no token):', error);

@@ -10,4 +10,5 @@ export const initializeGroupChatResponseSchema = type({
   updatedAt: 'string.date.iso',
 });
 
-export type InitializeGroupChatResponse = typeof initializeGroupChatResponseSchema.infer;
+export type InitializeGroupChatResponse =
+  typeof initializeGroupChatResponseSchema.infer;

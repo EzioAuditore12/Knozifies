@@ -26,7 +26,8 @@ export class SyncDatabase {
   public async pullChanges() {
     const lastSyncedAt = this.getLastSyncedAt();
 
-    const { changes, timestamp } = await this.pullChangesRequestApi(lastSyncedAt);
+    const { changes, timestamp } =
+      await this.pullChangesRequestApi(lastSyncedAt);
 
     await this.database.transaction(async (transaction) => {
       await this.synchronizeRecords(transaction, this.userTable, changes.user);
@@ -34,24 +35,34 @@ export class SyncDatabase {
       await this.synchronizeRecords(
         transaction,
         this.conversationOneToOneTable,
-        changes.conversationOneToOne
+        changes.conversationOneToOne,
       );
 
       await this.synchronizeRecords(
         transaction,
         this.conversationGroupTable,
-        changes.conversationGroup
+        changes.conversationGroup,
       );
 
-      await this.synchronizeRecords(transaction, this.chatOneToOneTable, changes.chatsOneToOne);
+      await this.synchronizeRecords(
+        transaction,
+        this.chatOneToOneTable,
+        changes.chatsOneToOne,
+      );
 
-      await this.synchronizeRecords(transaction, this.chatGroupTable, changes.chatsGroup);
+      await this.synchronizeRecords(
+        transaction,
+        this.chatGroupTable,
+        changes.chatsGroup,
+      );
 
       this.updateLastSyncedAt(timestamp);
     });
   }
 
-  private async pullChangesRequestApi(lastSyncedAt: number): Promise<PullChangesResponse> {
+  private async pullChangesRequestApi(
+    lastSyncedAt: number,
+  ): Promise<PullChangesResponse> {
     return await pullChangesApi({
       lastSyncedAt,
       tableNames: [
@@ -69,7 +80,7 @@ export class SyncDatabase {
   >(
     transaction: TransactionType,
     table: TTable,
-    data: { created: any[]; updated: any[]; deleted: string[] }
+    data: { created: any[]; updated: any[]; deleted: string[] },
   ): Promise<void> {
     await this.insertNewRecords(transaction, table, data.created);
     await this.updateExistingRecords(transaction, table, data.updated);
@@ -82,14 +93,15 @@ export class SyncDatabase {
       const existingRecords = await this.findExistingIds(
         transaction,
         table,
-        data.map((d) => d.id)
+        data.map((d) => d.id),
       );
 
       const existingIds = new Set(existingRecords.map((u) => u.id));
 
       const newData = data.filter((u) => !existingIds.has(u.id));
 
-      if (!this.isArrayEmpty(newData)) await transaction.insert(table).values(newData);
+      if (!this.isArrayEmpty(newData))
+        await transaction.insert(table).values(newData);
     }
   }
 
@@ -98,7 +110,10 @@ export class SyncDatabase {
   >(transaction: TransactionType, table: TTable, data: any[]): Promise<void> {
     if (data.length > 0) {
       for (const record of data) {
-        await transaction.update(table).set(record).where(eq(table.id, record.id));
+        await transaction
+          .update(table)
+          .set(record)
+          .where(eq(table.id, record.id));
       }
     }
   }
@@ -108,7 +123,10 @@ export class SyncDatabase {
   >(transaction: TransactionType, table: TTable, ids: string[]) {
     if (ids.length === 0) return [];
 
-    return await transaction.select({ id: table.id }).from(table).where(inArray(table.id, ids));
+    return await transaction
+      .select({ id: table.id })
+      .from(table)
+      .where(inArray(table.id, ids));
   }
 
   private getLastSyncedAt(): number {

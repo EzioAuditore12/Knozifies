@@ -4,7 +4,10 @@ import { refreshAccessToken } from '../token-manager';
 
 export type SocketError = Error & { data?: { status: number } };
 
-export const handleWsTokenRefresh = async (err: SocketError, socket: Socket) => {
+export const handleWsTokenRefresh = async (
+  err: SocketError,
+  socket: Socket,
+) => {
   console.log('❌ WS connect error:', err.message);
 
   // Check for the custom status we added on the server

@@ -7,7 +7,7 @@ import { chatGroupRepository } from '@/db/repositories/chat-group.repository';
 import { conversationGroupRepository } from '@/db/repositories/conversation-group.repository';
 
 const handleReceiveGroupMessage = async (
-  message: Omit<ReceiveGroupMessage, 'deliveredTo' | 'seenBy'>
+  message: Omit<ReceiveGroupMessage, 'deliveredTo' | 'seenBy'>,
 ) => {
   const { id, conversationId, senderId, createdAt, text, updatedAt } = message;
 
