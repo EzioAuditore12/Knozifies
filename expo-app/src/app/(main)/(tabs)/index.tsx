@@ -5,15 +5,29 @@ import { BottomSheet } from 'heroui-native/bottom-sheet';
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { withUniwind } from 'uniwind';
+import { useLiveQuery } from '@/db/hooks/use-live-query';
+import { db } from '@/db';
+import { aiTable } from '@/db/tables/ai.table';
+import { aiRepository } from '@/db/repositories/ai.repository';
 
 const StyledIonicons = withUniwind(Ionicons);
 
 export default function HomeScreen() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const { data } = useLiveQuery(db.select().from(aiTable));
+
+  console.log(data);
+
   return (
     <View className="flex-1 justify-center items-center bg-background">
-      <Button onPress={() => console.log('Pressed!')}>Get Started</Button>
+      <Button
+        onPress={async () =>
+          aiRepository.create({ sender: 'ai', text: 'Hello' })
+        }
+      >
+        Get Started
+      </Button>
       <Input placeholder="Hello" className="w-full max-w-2xl" />
 
       <BottomSheet isOpen={isOpen} onOpenChange={setIsOpen}>

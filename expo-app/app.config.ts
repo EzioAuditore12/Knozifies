@@ -2,46 +2,43 @@ import type { ConfigContext, ExpoConfig } from 'expo/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: 'expo-app',
-  slug: 'expo-app',
+  name: 'Knozify',
+  slug: 'Knozify',
   version: '1.0.0',
-  orientation: 'portrait',
-  icon: './public/images/icon.png',
-  scheme: 'expoapp',
+  orientation: 'default',
+  icon: './assets/images/icon.png',
+  scheme: 'knozify',
   userInterfaceStyle: 'automatic',
-  newArchEnabled: true,
   ios: {
     supportsTablet: true,
   },
   android: {
     adaptiveIcon: {
       backgroundColor: '#E6F4FE',
-      foregroundImage: './public/images/android-icon-foreground.png',
-      backgroundImage: './public/images/android-icon-background.png',
-      monochromeImage: './public/images/android-icon-monochrome.png',
+      foregroundImage: './assets/images/android-icon-foreground.png',
+      backgroundImage: './assets/images/android-icon-background.png',
+      monochromeImage: './assets/images/android-icon-monochrome.png',
     },
-    edgeToEdgeEnabled: true,
     predictiveBackGestureEnabled: false,
-    package: 'com.anonymous.expoapp',
+    package: 'com.anonymous.knozify',
   },
   web: {
     output: 'static',
-    favicon: './public/images/favicon.png',
+    favicon: './assets/images/favicon.png',
   },
   plugins: [
     'expo-router',
     [
       'expo-splash-screen',
       {
-        image: './public/images/splash-icon.png',
-        imageWidth: 200,
-        resizeMode: 'contain',
-        backgroundColor: '#ffffff',
-        dark: {
-          backgroundColor: '#000000',
+        backgroundColor: '#208AEF',
+        android: {
+          image: './assets/images/splash-icon.png',
+          imageWidth: 76,
         },
       },
     ],
+    'react-native-nitro-fetch',
   ],
   experiments: {
     typedRoutes: true,
