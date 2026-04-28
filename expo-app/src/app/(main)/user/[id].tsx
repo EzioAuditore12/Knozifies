@@ -28,10 +28,9 @@ const navgateToChat = async ({
 
   router.dismissTo('/(main)/(tabs)');
 
-  /*
   if (existingCoversationWithUser) {
     router.navigate({
-      pathname: '/(main)/chat/[id]',
+      pathname: '/(main)/chat/one-to-one/[id]',
       params: {
         id: existingCoversationWithUser.id,
         userId: existingCoversationWithUser.userId,
@@ -41,12 +40,12 @@ const navgateToChat = async ({
   }
   
   router.navigate({
-    pathname: '/(main)/new-chat/[id]',
+    pathname: '/(main)/chat/new-one-to-one/[id]',
     params: {
       id: userId,
       name: firstName,
     },
-  });*/
+  });
 };
 
 export default function UserDetails() {

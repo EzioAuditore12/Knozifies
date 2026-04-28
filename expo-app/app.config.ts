@@ -39,6 +39,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     'react-native-nitro-fetch',
+    'expo-background-task',
   ],
   experiments: {
     typedRoutes: true,

@@ -1,10 +1,9 @@
 import { Tabs } from 'expo-router';
+import { Avatar } from 'heroui-native/avatar';
 
 import { useAuthStore } from '@/store/auth';
 
 import { Ionicons } from '@/components/icon';
-
-import { Avatar } from 'heroui-native/avatar';
 
 export default function TabsLayout() {
   const { user } = useAuthStore((state) => state);
@@ -21,21 +20,20 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="message"
-        options={{
-          title: 'Message',
-          tabBarIcon: ({ color }) => (
-            <Ionicons size={32} name="chatbox" color={color} />
-          ),
-          headerShown: false,
-        }}
-      />
-      <Tabs.Screen
         name="reels"
         options={{
           title: 'Reels',
           tabBarIcon: ({ color }) => (
             <Ionicons size={32} name="videocam" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="message"
+        options={{
+          title: 'Message',
+          tabBarIcon: ({ color }) => (
+            <Ionicons size={32} name="chatbox" color={color} />
           ),
         }}
       />

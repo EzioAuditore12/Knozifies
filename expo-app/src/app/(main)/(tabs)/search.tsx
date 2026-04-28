@@ -11,7 +11,6 @@ import { useGetUsers } from '@/features/common/hooks/queries/use-get-users';
 import { useRefreshOnFocus } from '@/hooks/use-refresh-on-focus';
 
 import { useAuthStore } from '@/store/auth';
-import { Stack } from 'expo-router';
 
 export default function SearchScreen() {
   const safeAreaInsets = useSafeAreaInsets();
