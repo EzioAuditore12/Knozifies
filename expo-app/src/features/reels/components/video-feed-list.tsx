@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -29,9 +29,13 @@ const DECELERATION_RATE = 0.98;
 
 type Direction = 'up' | 'down';
 
-const VideoFeedList = () => {
+export interface VideoFeedListProps {
+  urls: string[];
+}
+
+const VideoFeedList = ({ urls }: VideoFeedListProps) => {
   const { seeking } = useSeek();
-  const { videos, loading, error } = useVideoFeed();
+  const { videos, loading, error } = useVideoFeed(urls);
   const currentIndexRef = useRef(0);
   const directionRef = useRef<Direction>('down');
   const scrollStartTimestampRef = useRef<number | null>(null);

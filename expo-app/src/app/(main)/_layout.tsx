@@ -29,7 +29,7 @@ export default function MainScreensLayout() {
     <Stack initialRouteName="(tabs)">
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="user/[id]" options={{ headerShown: false }} />
-      <Stack.Screen name="ai/index" />
+      <Stack.Screen name="chat/ai/index" />
       <Stack.Screen name="chat/group/[id]" />
       <Stack.Screen name="chat/new-group/index" />
       <Stack.Screen name="chat/one-to-one/[id]" />
