@@ -6,11 +6,16 @@ import {
 
 import { AppModule } from './app.module';
 
+import { openApiDocsInit } from './configs/open-api.config';
+
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter(),
+    new FastifyAdapter({ logger: true }),
   );
-  await app.listen(process.env.PORT ?? 3000);
+
+  openApiDocsInit(app);
+
+  await app.listen(process.env.PORT!, '0.0.0.0');
 }
 void bootstrap();
