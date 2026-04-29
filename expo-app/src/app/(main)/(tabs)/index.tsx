@@ -1,54 +1,61 @@
 import { View } from 'react-native';
-import { Button } from 'heroui-native/button';
-import { Input } from 'heroui-native/input';
-import { BottomSheet } from 'heroui-native/bottom-sheet';
-import { useState } from 'react';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { withUniwind } from 'uniwind';
+import { Stack } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const StyledIonicons = withUniwind(Ionicons);
+import { HomeHeader } from '@/features/home/components/header';
+import { PostList } from '@/features/home/components/post-list';
+import type { Post } from '@/features/home/components/post-card';
+
+const DUMMY_POSTS: Post[] = [
+  {
+    id: '1',
+    user: {
+      name: 'alice',
+      avatar: 'https://randomuser.me/api/portraits/women/1.jpg',
+    },
+    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
+    caption: 'Enjoying the sunshine! ☀️',
+    likes: 120,
+    comments: 14,
+  },
+  {
+    id: '2',
+    user: {
+      name: 'bob',
+      avatar: 'https://randomuser.me/api/portraits/men/2.jpg',
+    },
+    image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca',
+    caption: 'Hiking adventures in the mountains.',
+    likes: 98,
+    comments: 8,
+  },
+  {
+    id: '3',
+    user: {
+      name: 'carol',
+      avatar: 'https://randomuser.me/api/portraits/women/3.jpg',
+    },
+    image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308',
+    caption: 'Best coffee in town! ☕️',
+    likes: 76,
+    comments: 5,
+  },
+];
 
 export default function HomeScreen() {
-  const [isOpen, setIsOpen] = useState(false);
-
+  const safeAreaInsets = useSafeAreaInsets();
   return (
-    <View className="flex-1 justify-center items-center bg-background">
-      <Input placeholder="Hello" className="w-full max-w-2xl" />
-
-      <BottomSheet isOpen={isOpen} onOpenChange={setIsOpen}>
-        <BottomSheet.Trigger asChild>
-          <Button variant="secondary">Open Bottom Sheet</Button>
-        </BottomSheet.Trigger>
-        <BottomSheet.Portal>
-          <BottomSheet.Overlay />
-          <BottomSheet.Content>
-            <View className="items-center mb-5">
-              <View className="size-20 items-center justify-center rounded-full bg-green-500/10">
-                <StyledIonicons
-                  name="accessibility"
-                  size={40}
-                  className="text-green-500"
-                />
-              </View>
-            </View>
-            <View className="mb-8 gap-2 items-center">
-              <BottomSheet.Title className="text-center">
-                Keep yourself safe
-              </BottomSheet.Title>
-              <BottomSheet.Description className="text-center">
-                Update your software to the latest version for better security
-                and performance.
-              </BottomSheet.Description>
-            </View>
-            <View className="gap-3">
-              <Button onPress={() => setIsOpen(false)}>Update Now</Button>
-              <Button variant="tertiary" onPress={() => setIsOpen(false)}>
-                Later
-              </Button>
-            </View>
-          </BottomSheet.Content>
-        </BottomSheet.Portal>
-      </BottomSheet>
-    </View>
+    <>
+      <Stack.Screen
+        options={{
+          header: () => (
+            <HomeHeader style={{ paddingTop: safeAreaInsets.top }} />
+          ),
+        }}
+      />
+      <View className="flex-1">
+        <PostList data={DUMMY_POSTS} />
+      </View>
+    </>
   );
 }

@@ -11,6 +11,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   userInterfaceStyle: 'automatic',
   ios: {
     supportsTablet: true,
+    infoPlist: {
+      NSCameraUsageDescription:
+        'Knozify needs access to your Camera to capture photos and videos.',
+      NSMicrophoneUsageDescription:
+        'Knozify needs access to your Microphone to record audio for video recordings.',
+    },
   },
   android: {
     adaptiveIcon: {
@@ -19,6 +25,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       backgroundImage: './assets/images/android-icon-background.png',
       monochromeImage: './assets/images/android-icon-monochrome.png',
     },
+    permissions: [
+      'android.permission.CAMERA',
+      'android.permission.RECORD_AUDIO',
+    ],
     predictiveBackGestureEnabled: false,
     package: 'com.anonymous.knozify',
   },

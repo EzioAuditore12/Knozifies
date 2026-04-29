@@ -34,6 +34,14 @@ export default function MainScreensLayout() {
       <Stack.Screen name="chat/new-group/index" />
       <Stack.Screen name="chat/one-to-one/[id]" />
       <Stack.Screen name="chat/new-one-to-one/[id]" />
+      <Stack.Screen
+        name="upload/index"
+        options={{
+          headerShown: false,
+          animationMatchesGesture: true,
+          animation: 'slide_from_left',
+        }}
+      />
     </Stack>
   );
 }
