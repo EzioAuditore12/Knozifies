@@ -58,6 +58,7 @@ export function ChatGroupList({
       onLayout={(e) => setViewHeight(e.nativeEvent.layout.height)}
     >
       <FlashList
+        className="p-1"
         ref={ref}
         onScroll={handleScroll}
         onContentSizeChange={(_, h) => setContentHeight(h)}
