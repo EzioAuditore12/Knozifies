@@ -34,6 +34,7 @@ export class RefreshJwtStrategy extends PassportStrategy(
   async validate(req: FastifyRequest, payload: AuthJwtPayload) {
     const body = req.body as Record<string, any>;
     const userId = payload.sub;
+    const userName = payload.username;
     const refreshToken = body['refreshToken'] as string;
 
     const isBlackListedRefreshToken =
@@ -44,6 +45,7 @@ export class RefreshJwtStrategy extends PassportStrategy(
 
     return {
       id: userId,
+      userName,
       refreshToken,
       issuedAt: new Date(payload.iat * 1000),
       expiredAt: new Date(payload.exp * 1000),
