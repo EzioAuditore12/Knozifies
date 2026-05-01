@@ -15,8 +15,6 @@ import { AskAiParam } from '../schemas/ask-ai/param.schema';
 interface AiChatInputProps extends ViewProps {
   groups: Pick<ConversationGroup, 'id' | 'name'>[];
   isLoadingGroups: boolean;
-  userId: string;
-  username: string;
   handleMutation: (params: Omit<AskAiParam, 'chats'>) => void;
   isMutationPending: boolean;
 }
@@ -29,8 +27,6 @@ const paramSchema = type({
 export function AiChatInput({
   className,
   groups,
-  userId,
-  username,
   isLoadingGroups,
   handleMutation,
   isMutationPending,
@@ -59,10 +55,6 @@ export function AiChatInput({
 
     if (selectedGroup) {
       handleMutation({
-        user: {
-          user_id: userId,
-          username: username,
-        },
         group: {
           group_id: selectedGroup.id,
           group_name: selectedGroup.name,

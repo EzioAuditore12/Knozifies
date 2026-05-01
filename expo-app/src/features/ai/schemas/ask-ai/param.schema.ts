@@ -7,10 +7,6 @@ const chats = type({
 });
 
 export const askAiParamSchema = type({
-  user: {
-    user_id: 'string.uuid',
-    username: 'string',
-  },
   group: {
     group_id: 'string.base64',
     group_name: 'string',

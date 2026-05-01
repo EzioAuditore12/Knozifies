@@ -1,39 +1,80 @@
-import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
-import { useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useState, useEffect } from 'react';
+import {
+  Button,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Image,
+  View,
+} from 'react-native';
+import * as MediaLibrary from 'expo-media-library';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function UploadScreen() {
-  const [facing, setFacing] = useState<CameraType>('back');
-  const [permission, requestPermission] = useCameraPermissions();
+  const safeAreaInsets = useSafeAreaInsets();
+  const [albums, setAlbums] = useState<MediaLibrary.Album[]>([]);
+  const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
 
-  if (!permission) {
-    // Camera permissions are still loading.
-    return <View />;
-  }
+  async function getAlbums() {
+    const currentPermission =
+      permissionResponse ?? (await MediaLibrary.getPermissionsAsync());
 
-  if (!permission.granted) {
-    // Camera permissions are not granted yet.
-    return (
-      <View style={styles.container}>
-        <Text style={styles.message}>
-          We need your permission to show the camera
-        </Text>
-        <Button onPress={requestPermission} title="grant permission" />
-      </View>
-    );
-  }
+    let permissionStatus = currentPermission.status;
+    if (permissionStatus !== 'granted') {
+      const requestedPermission = await requestPermission();
+      permissionStatus = requestedPermission.status;
+    }
 
-  function toggleCameraFacing() {
-    setFacing((current) => (current === 'back' ? 'front' : 'back'));
+    if (permissionStatus !== 'granted') {
+      setAlbums([]);
+      return;
+    }
+
+    const fetchedAlbums = await MediaLibrary.getAlbumsAsync({
+      includeSmartAlbums: true,
+    });
+    setAlbums(fetchedAlbums);
   }
 
   return (
-    <View style={styles.container}>
-      <CameraView style={styles.camera} facing={facing} />
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-          <Text style={styles.text}>Flip Camera</Text>
-        </TouchableOpacity>
+    <View
+      style={{ paddingTop: safeAreaInsets.top }}
+      className="flex-1 justify-center items-center"
+    >
+      <Button onPress={getAlbums} title="Get albums" />
+      <ScrollView>
+        {albums.map((album) => (
+          <AlbumEntry key={album.id} album={album} />
+        ))}
+      </ScrollView>
+    </View>
+  );
+}
+
+function AlbumEntry({ album }: { album: MediaLibrary.Album }) {
+  const [assets, setAssets] = useState<MediaLibrary.Asset[]>([]);
+
+  useEffect(() => {
+    async function getAlbumAssets() {
+      const albumAssets = await MediaLibrary.getAssetsAsync({ album });
+      setAssets(albumAssets.assets);
+    }
+    getAlbumAssets();
+  }, [album]);
+
+  return (
+    <View style={styles.albumContainer}>
+      <Text>
+        {album.title} - {album.assetCount ?? 'no'} assets
+      </Text>
+      <View style={styles.albumAssetsContainer}>
+        {assets.map((asset) => (
+          <Image
+            key={asset.id}
+            source={{ uri: asset.uri }}
+            style={styles.assetImage}
+          />
+        ))}
       </View>
     </View>
   );
@@ -42,30 +83,20 @@ export default function UploadScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    gap: 8,
     justifyContent: 'center',
   },
-  message: {
-    textAlign: 'center',
-    paddingBottom: 10,
+  albumContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 12,
+    gap: 4,
   },
-  camera: {
-    flex: 1,
-  },
-  buttonContainer: {
-    position: 'absolute',
-    bottom: 64,
+  albumAssetsContainer: {
     flexDirection: 'row',
-    backgroundColor: 'transparent',
-    width: '100%',
-    paddingHorizontal: 64,
+    flexWrap: 'wrap',
   },
-  button: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
+  assetImage: {
+    width: 50,
+    height: 50,
   },
 });

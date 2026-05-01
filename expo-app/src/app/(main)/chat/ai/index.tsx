@@ -9,7 +9,6 @@ import { AiChatList } from '@/features/ai/components/list';
 
 import { useGetGroups } from '@/features/ai/hooks/use-get-groups';
 import { useChatWithAi } from '@/features/ai/hooks/use-chat-with-ai';
-import { useAuthStore } from '@/store/auth';
 import { useLiveQuery } from '@/db/hooks/use-live-query';
 import { db } from '@/db';
 import { aiTable } from '@/db/tables/ai.table';
@@ -20,8 +19,6 @@ export default function AiPage() {
   const { data: groups, isLoading: isGroupsLoading } = useGetGroups();
 
   const { mutate, isPending } = useChatWithAi();
-
-  const { user } = useAuthStore((state) => state);
 
   const { data } = useLiveQuery(db.select().from(aiTable));
 
@@ -42,8 +39,6 @@ export default function AiPage() {
           </View>
         </Activity>
         <AiChatInput
-          userId={user?.id!}
-          username={`${user?.firstName} ${user?.lastName}`}
           groups={groups}
           isLoadingGroups={isGroupsLoading}
           handleMutation={mutate}

@@ -1,6 +1,6 @@
 import { env } from '@/env';
 
-import { typedFetch } from '@/lib/fetch';
+import { authenticatedTypedFetch } from '@/lib/auth.api';
 
 import { askAiResponseSchema } from '../schemas/ask-ai/response.schema';
 import { AskAiParam } from '../schemas/ask-ai/param.schema';
@@ -20,8 +20,9 @@ export const askAiApi = async (data: Omit<AskAiParam, 'chats'>) => {
     created_at: new Date(chat.createdAt).toISOString().slice(0, 19),
   }));
 
-  return await typedFetch({
-    url: `${env.AI_URL}/send`,
+  return await authenticatedTypedFetch({
+    baseUrl: env.AI_URL,
+    url: `send`,
     method: 'POST',
     body: { ...data, chats: mappedChats },
     schema: askAiResponseSchema,
