@@ -25,7 +25,11 @@ export default function HomeScreen() {
         }}
       />
       <View className="flex-1">
-        <PostList data={flattenedData} onEndReached={fetchNextPage} />
+        <PostList
+          onRefresh={refetch}
+          data={flattenedData}
+          onEndReached={fetchNextPage}
+        />
       </View>
     </>
   );

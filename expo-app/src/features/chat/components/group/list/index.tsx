@@ -54,12 +54,12 @@ export function ChatGroupList({
 
   return (
     <View
-      className={cn('relative flex-1 p-1', className)}
+      className={cn('relative flex-1', className)}
       onLayout={(e) => setViewHeight(e.nativeEvent.layout.height)}
     >
       <FlashList
-        className="p-1"
         ref={ref}
+        contentContainerStyle={{ padding: 8 }}
         onScroll={handleScroll}
         onContentSizeChange={(_, h) => setContentHeight(h)}
         data={data}
