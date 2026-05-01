@@ -1,47 +1,71 @@
-import { useEffect, useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import {
-  Camera,
-  CameraPosition,
-  useCameraPermission,
-  usePhotoOutput,
-} from 'react-native-vision-camera';
-import { Ionicons } from '../../../components/icon';
+import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
+import { useState } from 'react';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function UploadScreen() {
-  const { hasPermission, requestPermission } = useCameraPermission();
-  const photoOutput = usePhotoOutput();
-  const [cameraPosition, setCameraPosition] = useState<CameraPosition>('back');
+  const [facing, setFacing] = useState<CameraType>('back');
+  const [permission, requestPermission] = useCameraPermissions();
 
-  useEffect(() => {
-    if (!hasPermission) requestPermission();
-  }, [hasPermission, requestPermission]);
+  if (!permission) {
+    // Camera permissions are still loading.
+    return <View />;
+  }
 
-  const toggleCamera = () => {
-    setCameraPosition((prev) => (prev === 'back' ? 'front' : 'back'));
-  };
+  if (!permission.granted) {
+    // Camera permissions are not granted yet.
+    return (
+      <View style={styles.container}>
+        <Text style={styles.message}>
+          We need your permission to show the camera
+        </Text>
+        <Button onPress={requestPermission} title="grant permission" />
+      </View>
+    );
+  }
+
+  function toggleCameraFacing() {
+    setFacing((current) => (current === 'back' ? 'front' : 'back'));
+  }
 
   return (
-    <View className="flex-1 bg-black">
-      <Camera
-        style={{ flex: 1 }}
-        isActive={true}
-        device={cameraPosition as any}
-        outputs={[photoOutput]}
-      />
-
-      <View className="absolute bottom-12 w-full flex-row items-center justify-center">
-        {/* Sample Camera Capture Button */}
-        <TouchableOpacity className="w-16 h-16 rounded-full bg-white border-4 border-gray-300" />
-
-        {/* Switch Camera Icon */}
-        <TouchableOpacity
-          className="absolute right-8 bg-black/40 p-3 rounded-full"
-          onPress={toggleCamera}
-        >
-          <Ionicons name="camera-reverse" size={28} className="text-white" />
+    <View style={styles.container}>
+      <CameraView style={styles.camera} facing={facing} />
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+          <Text style={styles.text}>Flip Camera</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  message: {
+    textAlign: 'center',
+    paddingBottom: 10,
+  },
+  camera: {
+    flex: 1,
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 64,
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    width: '100%',
+    paddingHorizontal: 64,
+  },
+  button: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+});
