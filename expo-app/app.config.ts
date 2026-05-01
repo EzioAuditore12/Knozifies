@@ -2,12 +2,12 @@ import type { ConfigContext, ExpoConfig } from 'expo/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: 'Knozify',
-  slug: 'Knozify',
+  name: 'Knozifies',
+  slug: 'Knozifies',
   version: '1.0.0',
-  orientation: 'default',
+  orientation: 'portrait',
   icon: './assets/images/icon.png',
-  scheme: 'knozify',
+  scheme: 'knozifies',
   userInterfaceStyle: 'automatic',
   ios: {
     supportsTablet: true,
@@ -20,7 +20,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       monochromeImage: './assets/images/android-icon-monochrome.png',
     },
     predictiveBackGestureEnabled: false,
-    package: 'com.anonymous.knozify',
+    package: 'com.anonymous.knozifies',
   },
   web: {
     output: 'static',
@@ -69,8 +69,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       'expo-camera',
       {
-        cameraPermission: 'Allow Knozify to access your camera',
-        microphonePermission: 'Allow Knozify to access your microphone',
+        cameraPermission: 'Allow Knozifies to access your camera',
+        microphonePermission: 'Allow Knozifies to access your microphone',
         recordAudioAndroid: true,
         barcodeScannerEnabled: true,
       },

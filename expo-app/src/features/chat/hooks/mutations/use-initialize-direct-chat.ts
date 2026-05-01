@@ -50,7 +50,7 @@ export const useInitializeDirectChat = () => {
       });
 
       router.replace({
-        pathname: '/(main)/chat/[id]',
+        pathname: '/(main)/chat/one-to-one/[id]',
         params: { id: data.conversationId, userId: data.receiverId },
       });
     },

@@ -51,7 +51,7 @@ export function useInitializeGroupChat() {
       });
 
       router.replace({
-        pathname: '/(main)/chat-group/[id]',
+        pathname: '/(main)/chat/group/[id]',
         params: { id: data.id },
       });
     },

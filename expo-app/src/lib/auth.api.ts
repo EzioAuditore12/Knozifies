@@ -137,6 +137,14 @@ export const authenticatedTypedFetch = async <S extends s.StandardSchemaV1>({
         : undefined,
   };
 
+  if (params !== undefined) {
+    const paramsValues = new URLSearchParams(
+      params as Record<string, string>,
+    ).toString();
+
+    url = url + (url.includes('?') ? '&' : '?') + paramsValues;
+  }
+
   const apiUrl = `${baseUrl}/${url}`;
 
   let response = await fetch(apiUrl, {

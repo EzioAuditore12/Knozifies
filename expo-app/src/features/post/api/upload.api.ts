@@ -1,8 +1,8 @@
 import { env } from '@/env';
 
-import type { PostUploadParam } from '../schemas/param.schema';
+import type { PostUploadParam } from '../schemas/upload/param.schema';
 import { authenticatedTypedFetch } from '@/lib/auth.api';
-import { postUploadResponseSchema } from '../schemas/response.schema';
+import { postUploadResponseSchema } from '../schemas/upload/response.schema';
 
 export const uploadPostApi = async (data: PostUploadParam) => {
   const formData = new FormData();

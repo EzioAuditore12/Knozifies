@@ -14,7 +14,7 @@ import { TextArea } from 'heroui-native/text-area';
 import {
   PostUploadParam,
   postUploadParamSchema,
-} from '../schemas/param.schema';
+} from '../schemas/upload/param.schema';
 import { arktypeResolver } from '@hookform/resolvers/arktype';
 
 interface PostFormProps extends ViewProps {

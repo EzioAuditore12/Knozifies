@@ -4,46 +4,17 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { HomeHeader } from '@/features/home/components/header';
 import { PostList } from '@/features/home/components/post-list';
-import type { Post } from '@/features/home/components/post-card';
-
-const DUMMY_POSTS: Post[] = [
-  {
-    id: '1',
-    user: {
-      name: 'alice',
-      avatar: 'https://randomuser.me/api/portraits/women/1.jpg',
-    },
-    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
-    caption: 'Enjoying the sunshine! ☀️',
-    likes: 120,
-    comments: 14,
-  },
-  {
-    id: '2',
-    user: {
-      name: 'bob',
-      avatar: 'https://randomuser.me/api/portraits/men/2.jpg',
-    },
-    image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca',
-    caption: 'Hiking adventures in the mountains.',
-    likes: 98,
-    comments: 8,
-  },
-  {
-    id: '3',
-    user: {
-      name: 'carol',
-      avatar: 'https://randomuser.me/api/portraits/women/3.jpg',
-    },
-    image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308',
-    caption: 'Best coffee in town! ☕️',
-    likes: 76,
-    comments: 5,
-  },
-];
+import { useGetPosts } from '@/features/post/hooks/use-get-posts';
+import { useRefreshOnFocus } from '@/hooks/use-refresh-on-focus';
 
 export default function HomeScreen() {
   const safeAreaInsets = useSafeAreaInsets();
+
+  const { data, refetch, fetchNextPage } = useGetPosts();
+
+  const flattenedData = data?.pages.flat() ?? [];
+
+  useRefreshOnFocus(refetch);
   return (
     <>
       <Stack.Screen
@@ -54,7 +25,7 @@ export default function HomeScreen() {
         }}
       />
       <View className="flex-1">
-        <PostList data={DUMMY_POSTS} />
+        <PostList data={flattenedData} onEndReached={fetchNextPage} />
       </View>
     </>
   );
