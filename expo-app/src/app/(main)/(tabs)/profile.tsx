@@ -19,7 +19,11 @@ export default function UserProfileScreen() {
 
   const { data, refetch, isLoading } = useGetProfile();
 
-  const { data: posts, fetchNextPage } = useGetUserPosts();
+  const {
+    data: posts,
+    fetchNextPage,
+    refetch: refetchPosts,
+  } = useGetUserPosts();
 
   const flattenedPosts = posts?.pages.flat() ?? [];
   const hasPosts = flattenedPosts.length > 0;
@@ -47,6 +51,7 @@ export default function UserProfileScreen() {
   return (
     <PostList
       data={flattenedPosts}
+      onRefresh={refetchPosts}
       onEndReached={() => fetchNextPage()}
       style={{ flex: 1, marginTop: safeAreaInsets.top }}
       contentContainerStyle={{ paddingBottom: 24 }}
