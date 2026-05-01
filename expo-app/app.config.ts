@@ -52,12 +52,18 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       },
     ],
     [
-      'expo-media-library',
+      'expo-image-picker',
       {
-        photosPermission: 'Allow Knozify to access your photos.',
-        savePhotosPermission: 'Allow Knozify to save photos.',
-        isAccessMediaLocationEnabled: true,
-        granularPermissions: ['audio', 'photo'],
+        photosPermission:
+          'The app accesses your photos to let you share them with your friends.',
+        colors: {
+          cropToolbarColor: '#000000',
+        },
+        dark: {
+          colors: {
+            cropToolbarColor: '#000000',
+          },
+        },
       },
     ],
     [

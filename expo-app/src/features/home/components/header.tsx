@@ -14,7 +14,7 @@ export function HomeHeader({ className, ...props }: ViewProps) {
       <ThrottledTouchable onPress={() => router.push('/(main)/upload')}>
         <Ionicons name="add" className="text-4xl" />
       </ThrottledTouchable>
-      <Description className="text-2xl font-bold">Knozify</Description>
+      <Description className="text-2xl font-bold">Knozifies</Description>
       <Ionicons name="heart" className="text-4xl" />
     </View>
   );
